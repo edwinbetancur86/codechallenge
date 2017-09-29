@@ -9,7 +9,7 @@
     android:elevation="5dp"
     card_view:cardCornerRadius="5dp">
 
-    
+
         <TextView
             android:id="@+id/time_of_day"
             android:layout_width="wrap_content"
