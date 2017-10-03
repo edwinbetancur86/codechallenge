@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -27,7 +26,8 @@ public class ForecastConditionAdapter2 extends RecyclerView.Adapter<ForecastCond
     private Context context;
     private int maxDegree;
     private int minDegree;
-    private Boolean firstOccurence = false;
+    private Boolean firstCoolOccurrence = true;
+    private Boolean firstWarmOccurrence = true;
     private final static String TAG = "ForecastConditionAdapter2";
 
 
@@ -72,14 +72,16 @@ public class ForecastConditionAdapter2 extends RecyclerView.Adapter<ForecastCond
 
         holder.timeOfDay.setText(weatherModelLabelerList.get(position).getTimeOfDay());
 
-        if (Integer.parseInt(weatherModelLabelerList.get(position).getCurrentDegreeValue()) == minDegree)
+        if ((Integer.parseInt(weatherModelLabelerList.get(position).getCurrentDegreeValue()) == minDegree) && (firstCoolOccurrence))
         {
             holder.iconCondition.setColorFilter(ContextCompat.getColor(context, R.color.weather_cool));
+            firstCoolOccurrence = false;
         }
 
-        if (Integer.parseInt(weatherModelLabelerList.get(position).getCurrentDegreeValue()) == maxDegree)
+        if ((Integer.parseInt(weatherModelLabelerList.get(position).getCurrentDegreeValue()) == maxDegree) && (firstWarmOccurrence))
         {
             holder.iconCondition.setColorFilter(ContextCompat.getColor(context, R.color.weather_warm));
+            firstWarmOccurrence = false;
         }
 
         Glide.with(context).load(weatherModelLabelerList.get(position).getIconCondition()).into(holder.iconCondition);
