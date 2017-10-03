@@ -10,7 +10,7 @@ import java.util.List;
 public class WeatherModelLabeler {
 
     private String timeOfDay;
-    private int iconCondition;
+    private String iconCondition;
     private String currentDegreeValue;
 
     public String getTimeOfDay() {
@@ -21,11 +21,11 @@ public class WeatherModelLabeler {
         this.timeOfDay = timeOfDay;
     }
 
-    public int getIconCondition() {
+    public String getIconCondition() {
         return iconCondition;
     }
 
-    public void setIconCondition(int iconCondition) {
+    public void setIconCondition(String iconCondition) {
         this.iconCondition = iconCondition;
     }
 

@@ -1,6 +1,7 @@
 package com.foo.umbrella.data;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.foo.umbrella.R;
 import com.foo.umbrella.data.Model2.WeatherModelLabeler;
 
@@ -21,43 +23,20 @@ import java.util.List;
 public class ForecastConditionAdapter2 extends RecyclerView.Adapter<ForecastConditionAdapter2.ForecastViewHolder>{
 
     private List<WeatherModelLabeler> weatherModelLabelerList;
-    private int rowLayout;
-    private LayoutInflater inflater;
+    LayoutInflater inflater;
     private Context context;
+    private int maxDegree;
+    private int minDegree;
     private final static String TAG = "ForecastConditionAdapter2";
 
-    public ForecastConditionAdapter2(List<WeatherModelLabeler> weatherModelLabelerList, Context context) {
-        this.weatherModelLabelerList = weatherModelLabelerList;
-        this.context = context;
-        inflater = LayoutInflater.from(context);
-    }
 
-    @Override
-    public ForecastViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.hourly_item, parent, false);
-        ForecastViewHolder holder = new ForecastViewHolder(view);
-        return holder;
-    }
-
-    @Override
-    public void onBindViewHolder(ForecastViewHolder holder, int position) {
-
-        holder.timeOfDay.setText(weatherModelLabelerList.get(position).getTimeOfDay());
-        holder.iconCondition.setImageResource(weatherModelLabelerList.get(position).getIconCondition());
-        holder.currentDegree.setText(weatherModelLabelerList.get(position).getCurrentDegreeValue());
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return weatherModelLabelerList.size();
-    }
-
-    class ForecastViewHolder extends RecyclerView.ViewHolder
+    public static class ForecastViewHolder extends RecyclerView.ViewHolder
     {
+
         TextView timeOfDay;
         ImageView iconCondition;
         TextView currentDegree;
+
 
         public ForecastViewHolder(View itemView)
         {
@@ -67,6 +46,52 @@ public class ForecastConditionAdapter2 extends RecyclerView.Adapter<ForecastCond
             currentDegree = (TextView) itemView.findViewById(R.id.degree_value_of_hour);
         }
     }
+
+
+    public ForecastConditionAdapter2(List<WeatherModelLabeler> weatherModelLabelerList,
+                                     Context context, int maxDegree, int minDegree) {
+        this.weatherModelLabelerList = weatherModelLabelerList;
+        this.context = context;
+        this.maxDegree = maxDegree;
+        this.minDegree = minDegree;
+        inflater = LayoutInflater.from(context);
+
+    }
+
+    @Override
+    public ForecastConditionAdapter2.ForecastViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = inflater.inflate(R.layout.hourly_item, parent, false);
+        return new ForecastViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ForecastViewHolder holder, int position) {
+
+
+
+        holder.timeOfDay.setText(weatherModelLabelerList.get(position).getTimeOfDay());
+
+        if (Integer.parseInt(weatherModelLabelerList.get(position).getCurrentDegreeValue()) == minDegree)
+        {
+            holder.iconCondition.setColorFilter(ContextCompat.getColor(context, R.color.weather_cool));
+        }
+
+        if (Integer.parseInt(weatherModelLabelerList.get(position).getCurrentDegreeValue()) == maxDegree)
+        {
+            holder.iconCondition.setColorFilter(ContextCompat.getColor(context, R.color.weather_warm));
+        }
+
+        Glide.with(context).load(weatherModelLabelerList.get(position).getIconCondition()).into(holder.iconCondition);
+        holder.currentDegree.setText(weatherModelLabelerList.get(position).getCurrentDegreeValue());
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return weatherModelLabelerList.size();
+    }
+
+
 
 
 
