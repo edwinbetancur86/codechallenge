@@ -39,6 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
   private final String TAG = "MainActivity";
+  private final String DEFAULT_ZIP_CODE = "02861";
 
   /*@BindView(R.id.recyclerViewToday)
   RecyclerView recyclerViewToday;*/
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             = retrofit.create(WeatherService2.class);
 
     Call<WeatherModel> weatherModelCall
-            = weatherServiceInterface.forecastForZipCallable("02861");
+            = weatherServiceInterface.forecastForZipCallable(DEFAULT_ZIP_CODE);
 
     weatherModelCall.enqueue(new Callback<WeatherModel>() {
       @Override

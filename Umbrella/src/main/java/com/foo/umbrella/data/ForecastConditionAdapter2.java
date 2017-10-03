@@ -27,6 +27,7 @@ public class ForecastConditionAdapter2 extends RecyclerView.Adapter<ForecastCond
     private Context context;
     private int maxDegree;
     private int minDegree;
+    private Boolean firstOccurence = false;
     private final static String TAG = "ForecastConditionAdapter2";
 
 
