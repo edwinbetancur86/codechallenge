@@ -6,7 +6,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:layout_marginTop="5dp"
-    card_view:cardBackgroundColor="@android:color/holo_blue_dark"
+    card_view:cardBackgroundColor="@android:color/white"
     android:elevation="5dp"
     card_view:cardCornerRadius="5dp">
 
@@ -15,6 +15,7 @@
         <TextView
             android:id="@+id/time_of_day"
             android:layout_gravity="center"
+            android:textColor="@android:color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
@@ -31,6 +32,7 @@
         <TextView
             android:id="@+id/degree_value_of_hour"
             android:layout_gravity="center"
+            android:textColor="@android:color/black"
             android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -6,20 +6,25 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.foo.umbrella.R;
 import com.foo.umbrella.data.ForecastConditionAdapter2;
 import com.foo.umbrella.data.Model2.HourlyForecast;
 import com.foo.umbrella.data.Model2.WeatherModel;
 import com.foo.umbrella.data.Model2.WeatherModelLabeler;
-import com.foo.umbrella.data.api.WeatherService;
+import com.foo.umbrella.data.MyGridLayoutManager;
+import com.foo.umbrella.data.SpanningGridLayoutManager;
 import com.foo.umbrella.data.api.WeatherService2;
+import com.google.android.flexbox.AlignItems;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 
-import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
   TextView mainCondition;
 
   @BindView(R.id.city_state_location)
-  TextView cityStateLoction;
+  TextView cityStateLocation;
 
   @BindView(R.id.settings_button)
   Button settingsButton;
@@ -149,12 +154,13 @@ public class MainActivity extends AppCompatActivity {
           // Show results for today first
           RecyclerView recyclerViewToday = (RecyclerView) findViewById(R.id.recyclerViewToday);
 
-          recyclerViewToday.setHasFixedSize(true);
-
           recyclerViewToday.setLayoutManager(new GridLayoutManager(getApplicationContext(), 4, GridLayoutManager.VERTICAL, false));
+
+          recyclerViewToday.setNestedScrollingEnabled(false);
 
           recyclerViewToday.setAdapter(new ForecastConditionAdapter2
                   (weatherModelLabelerList, getApplicationContext(), getLargestDegree(), getSmallestDegree()));
+
 
         }
 
